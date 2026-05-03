@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Camila Oliveira | Acesso Exclusivo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --rose: #FF3366;
+    --rose-deep: #CC1144;
+    --rose-glow: rgba(255,51,102,0.18);
+    --gold: #D4A843;
+    --gold-light: #F0C96B;
+    --cream: #FFF5F7;
+    --charcoal: #0D0A0B;
+    --charcoal-mid: #1A1215;
+    --charcoal-soft: #251A1E;
+    --text-muted: rgba(255,255,255,0.45);
+    --text-soft: rgba(255,255,255,0.72);
+  }
+
+  html {
+    background: var(--charcoal);
+  }
+
+  body {
+    background: var(--charcoal);
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .app-container {
+    width: 100%;
+    max-width: 430px;
+    margin: 0 auto;
+    position: relative;
+    background: var(--charcoal);
+    min-height: 100svh;
+    box-shadow: 0 0 100px rgba(0,0,0,0.5);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 6rem 1.5rem 3rem;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255,51,102,0.22) 0%, transparent 65%),
+      radial-gradient(ellipse 60% 40% at 80% 80%, rgba(180,30,70,0.15) 0%, transparent 60%),
+      linear-gradient(180deg, #0D0A0B 0%, #1A0D12 50%, #0D0A0B 100%);
+  }
+
+  .noise {
+    position: absolute;
+    inset: 0;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 200px;
+    pointer-events: none;
+  }
+
+  .badge-wrapper {
+    position: absolute;
+    top: 2rem;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    z-index: 10;
+    pointer-events: none;
+    padding: 0 1rem;
+  }
+
+  .badge-restricted {
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.06);
+    border: 0.5px solid rgba(212,168,67,0.35);
+    border-radius: 100px;
+    padding: 6px 14px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    white-space: nowrap;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.7); }
+  }
+
+  .avatar-wrap {
+    position: relative;
+    width: 130px;
+    height: 130px;
+    margin-bottom: 1.5rem;
+  }
+
+  .avatar-ring {
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    background: conic-gradient(var(--rose) 0deg, var(--gold) 120deg, var(--rose-deep) 240deg, var(--rose) 360deg);
+    animation: spin 4s linear infinite;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .avatar-inner {
+    position: absolute;
+    inset: 2px;
+    border-radius: 50%;
+    background: var(--charcoal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .avatar-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #3D1A25 0%, #6B2540 50%, #3D1A25 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    line-height: 1;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 0 1.5rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .username {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    margin-bottom: 1rem;
+  }
+
+  .hero-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 9vw, 2.6rem);
+    font-weight: 900;
+    line-height: 1.08;
+    margin-bottom: 1rem;
+    letter-spacing: -0.01em;
+  }
+
+  .hero-headline em {
+    font-style: italic;
+    color: var(--rose);
+  }
+
+  .hero-sub {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.65;
+    color: var(--text-soft);
+    max-width: 300px;
+    margin-bottom: 2rem;
+  }
+
+  /* ── SOCIAL PROOF BAR ── */
+  .social-bar {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    background: rgba(255,255,255,0.04);
+    border: 0.5px solid rgba(255,255,255,0.1);
+    border-radius: 100px;
+    padding: 8px 16px;
+  }
+
+  .social-bar-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  .social-bar-num {
+    font-weight: 600;
+    color: #fff;
+  }
+
+  .dot-sep { color: rgba(255,255,255,0.2); }
+
+  /* ── CTA PRIMARY ── */
+  .cta-primary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 340px;
+    background: var(--rose);
+    border-radius: 14px;
+    padding: 16px 20px;
+    text-decoration: none;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    box-shadow: 0 8px 32px rgba(255,51,102,0.4), 0 2px 8px rgba(0,0,0,0.3);
+  }
+
+  .cta-primary::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  }
+
+  .cta-primary:active { transform: scale(0.97); }
+
+  .cta-text-wrap { display: flex; flex-direction: column; gap: 2px; }
+  .cta-label { font-size: 11px; font-weight: 400; opacity: 0.75; text-transform: uppercase; letter-spacing: 0.08em; }
+  .cta-main { font-size: 17px; font-weight: 600; letter-spacing: -0.01em; }
+
+  .cta-arrow {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .cta-disclaimer {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 12px;
+    text-align: center;
+  }
+
+  /* ── SCROLL INDICATOR ── */
+  .scroll-hint {
+    position: relative;
+    z-index: 2;
+    margin-top: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    opacity: 0.35;
+    animation: bob 2.5s ease-in-out infinite;
+  }
+
+  @keyframes bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(5px); }
+  }
+
+  .scroll-hint span { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; }
+  .scroll-hint svg { width: 16px; height: 16px; }
+
+  /* ── SECTION ── */
+  .section { padding: 3rem 1.5rem; position: relative; }
+  .section-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--rose);
+    margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 7vw, 2rem);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 1rem;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  .section-title em { font-style: italic; color: var(--rose); }
+  .section-body {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--text-soft);
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+    margin: 0 1.5rem;
+  }
+
+  /* ── BENEFITS ── */
+  .benefits { background: var(--charcoal-mid); }
+
+  .benefit-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 1.1rem 0;
+    border-bottom: 0.5px solid rgba(255,255,255,0.06);
+  }
+  .benefit-card:last-child { border-bottom: none; }
+
+  .benefit-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: var(--rose-glow);
+    border: 0.5px solid rgba(255,51,102,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .benefit-text { flex: 1; }
+  .benefit-title { font-size: 15px; font-weight: 600; margin-bottom: 3px; }
+  .benefit-desc { font-size: 13px; font-weight: 300; color: var(--text-soft); line-height: 1.5; }
+
+  /* ── URGENCY ── */
+  .urgency-bar {
+    background: var(--charcoal-soft);
+    border: 0.5px solid rgba(212,168,67,0.2);
+    border-radius: 14px;
+    padding: 1.25rem;
+    margin: 0 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .urgency-icon {
+    font-size: 28px;
+    flex-shrink: 0;
+  }
+
+  .urgency-text { flex: 1; }
+  .urgency-title { font-size: 14px; font-weight: 600; color: var(--gold-light); margin-bottom: 3px; }
+  .urgency-desc { font-size: 12px; font-weight: 300; color: var(--text-muted); line-height: 1.4; }
+
+  .spots-count {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--gold);
+    flex-shrink: 0;
+    line-height: 1;
+  }
+  .spots-label { font-size: 10px; color: var(--text-muted); text-align: center; }
+
+  /* ── TESTIMONIALS ── */
+  .testimonial {
+    background: var(--charcoal-soft);
+    border: 0.5px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 1.25rem;
+    margin-bottom: 12px;
+  }
+
+  .testi-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+
+  .testi-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--rose-deep), var(--charcoal-soft));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.8);
+    flex-shrink: 0;
+  }
+
+  .testi-name { font-size: 13px; font-weight: 600; }
+  .testi-verified { font-size: 11px; color: var(--text-muted); }
+
+  .testi-stars { color: var(--gold); font-size: 13px; letter-spacing: 1px; margin-bottom: 8px; }
+  .testi-text { font-size: 13px; font-weight: 300; color: var(--text-soft); line-height: 1.6; }
+
+  /* ── FINAL CTA ── */
+  .final-cta {
+    padding: 3rem 1.5rem 4rem;
+    text-align: center;
+    background: linear-gradient(180deg, transparent 0%, rgba(255,51,102,0.05) 100%);
+  }
+
+  .final-cta .section-title { margin-bottom: 0.5rem; }
+  .final-cta .section-body { margin-bottom: 2rem; }
+
+  .cta-full {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    background: var(--rose);
+    border-radius: 14px;
+    padding: 18px 24px;
+    text-decoration: none;
+    color: #fff;
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 12px 40px rgba(255,51,102,0.45), 0 2px 8px rgba(0,0,0,0.4);
+    transition: transform 0.15s;
+    animation: glow-pulse 3s ease-in-out infinite;
+  }
+
+  @keyframes glow-pulse {
+    0%, 100% { box-shadow: 0 12px 40px rgba(255,51,102,0.45), 0 2px 8px rgba(0,0,0,0.4); }
+    50% { box-shadow: 0 12px 60px rgba(255,51,102,0.65), 0 2px 8px rgba(0,0,0,0.4); }
+  }
+
+  .cta-full::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
+    animation: shimmer 3s ease-in-out infinite;
+  }
+
+  @keyframes shimmer {
+    0% { left: -100%; }
+    60%, 100% { left: 150%; }
+  }
+
+  .cta-full:active { transform: scale(0.97); }
+
+  .safe-note {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 14px;
+  }
+
+  /* ── FADE IN ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-up { animation: fadeUp 0.7s ease both; }
+  .delay-1 { animation-delay: 0.15s; }
+  .delay-2 { animation-delay: 0.3s; }
+  .delay-3 { animation-delay: 0.45s; }
+  .delay-4 { animation-delay: 0.6s; }
+  .delay-5 { animation-delay: 0.75s; }
+</style>
+</head>
+<body>
+
+<div class="app-container">
+
+<!-- ══════════ HERO ══════════ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="noise"></div>
+
+  <div class="badge-wrapper fade-up">
+    <div class="badge-restricted">
+      <div class="badge-dot"></div>
+      Você foi escolhida para ver isso
+    </div>
+  </div>
+
+  <div class="hero-content">
+    <div class="avatar-wrap fade-up delay-1">
+      <div class="avatar-ring"></div>
+      <div class="avatar-inner">
+        <img src="camila.png?v=2" alt="Camila Oliveira" style="width: 100%; height: 100%; object-fit: cover;">
+      </div>
+    </div>
+
+    <p class="username fade-up delay-1">@camilaoliveira</p>
+
+    <h1 class="hero-headline fade-up delay-2">
+      Eu guardo<br>
+      as melhores<br>
+      <em>para poucos.</em>
+    </h1>
+
+    <p class="hero-sub fade-up delay-3">
+      O que você vê no meu perfil é só a vitrine.
+      O que eu mando aqui dentro — você nunca esquece.
+    </p>
+
+    <div class="social-bar fade-up delay-3">
+      <div class="social-bar-item">
+        <span class="social-bar-num">4.8k</span>
+        <span>já dentro</span>
+      </div>
+      <span class="dot-sep">·</span>
+      <div class="social-bar-item">
+        <span class="social-bar-num">★ 4.9</span>
+      </div>
+      <span class="dot-sep">·</span>
+      <div class="social-bar-item">
+        <span class="social-bar-num">Todo dia</span>
+      </div>
+    </div>
+
+    <a href="https://t.me/seubot" class="cta-primary fade-up delay-4">
+      <div class="cta-text-wrap">
+        <span class="cta-label">Enquanto ainda dá tempo</span>
+        <span class="cta-main">Me mostra o que é</span>
+      </div>
+      <div class="cta-arrow">→</div>
+    </a>
+
+    <p class="cta-disclaimer fade-up delay-5">Grátis. Sem cadastro. Abre agora no Telegram.</p>
+  </div>
+</section>
+
+<!-- ══════════ URGÊNCIA ══════════ -->
+<div style="padding: 2rem 0 1rem;">
+  <div class="urgency-bar">
+    <div class="urgency-icon">🔥</div>
+    <div class="urgency-text">
+      <p class="urgency-title">Esse link some em breve</p>
+      <p class="urgency-desc">Quando fechar, não tem lista de espera. Não tem segunda chance.</p>
+    </div>
+    <div>
+      <div class="spots-count">23</div>
+      <div class="spots-label">vagas</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider" style="margin-top: 2rem;"></div>
+
+<!-- ══════════ BENEFÍCIOS ══════════ -->
+<section class="section benefits">
+  <p class="section-label">O que muda quando você entra</p>
+  <h2 class="section-title">Aqui dentro<br>é <em>diferente.</em></h2>
+
+  <div class="benefit-card">
+    <div class="benefit-icon">🔒</div>
+    <div class="benefit-text">
+      <p class="benefit-title">Só para quem está aqui</p>
+      <p class="benefit-desc">Nunca publiquei isso em lugar nenhum. Não vou publicar. É meu, é seu — de mais ninguém.</p>
+    </div>
+  </div>
+
+  <div class="benefit-card">
+    <div class="benefit-icon">📲</div>
+    <div class="benefit-text">
+      <p class="benefit-title">Cai no seu celular. Todo. Dia.</p>
+      <p class="benefit-desc">Sem precisar procurar, sem depender de feed. Chega na hora certa — quando você menos espera.</p>
+    </div>
+  </div>
+
+  <div class="benefit-card">
+    <div class="benefit-icon">♾️</div>
+    <div class="benefit-text">
+      <p class="benefit-title">O que eles não deixam eu postar</p>
+      <p class="benefit-desc">Já me bloquearam, já me limitaram. Aqui ninguém me controla. Você vê tudo — do jeito que é.</p>
+    </div>
+  </div>
+
+  <div class="benefit-card">
+    <div class="benefit-icon">⚡</div>
+    <div class="benefit-text">
+      <p class="benefit-title">Conteúdo que fica na cabeça</p>
+      <p class="benefit-desc">Não é enrolação, não é teaser. É o que tem de melhor — e você vai querer mais.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════ COPY SECTION ══════════ -->
+<section class="section">
+  <p class="section-label">Por que aqui</p>
+  <h2 class="section-title">Eu cansei de<br>fingir que<br>sou <em>comportada.</em></h2>
+  <p class="section-body">
+    No Instagram sou obrigada a me censurar toda hora.
+    Uma palavra errada, uma foto fora do padrão — e pronto, removem tudo.
+    <br><br>
+    Aqui eu sou eu. Sem personagem, sem filtro, sem limite.
+    E você vai ver exatamente quem eu sou quando ninguém está olhando.
+  </p>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════ DEPOIMENTOS ══════════ -->
+<section class="section" style="padding-top: 2rem;">
+  <p class="section-label">Quem já está dentro diz</p>
+  <h2 class="section-title" style="margin-bottom: 1.5rem;">Eles<br><em>não voltam</em><br>atrás.</h2>
+
+  <div class="testimonial">
+    <div class="testi-header">
+      <div class="testi-avatar">LF</div>
+      <div>
+        <p class="testi-name">L. Ferreira</p>
+        <p class="testi-verified">Membro há 3 semanas</p>
+      </div>
+    </div>
+    <p class="testi-stars">★★★★★</p>
+    <p class="testi-text">"Entrei sem saber o que ia encontrar. Na primeira mensagem já entendi porque todo mundo fica. Não tem comparação."</p>
+  </div>
+
+  <div class="testimonial">
+    <div class="testi-header">
+      <div class="testi-avatar">RC</div>
+      <div>
+        <p class="testi-name">R. Costa</p>
+        <p class="testi-verified">Membro há 1 mês</p>
+      </div>
+    </div>
+    <p class="testi-stars">★★★★★</p>
+    <p class="testi-text">"Fui ver o perfil dela depois de entrar aqui e ri. O que ela posta lá fora é nada. O que chega aqui é outra história."</p>
+  </div>
+
+  <div class="testimonial">
+    <div class="testi-header">
+      <div class="testi-avatar">MR</div>
+      <div>
+        <p class="testi-name">M. Rodrigues</p>
+        <p class="testi-verified">Membro há 2 semanas</p>
+      </div>
+    </div>
+    <p class="testi-stars">★★★★★</p>
+    <p class="testi-text">"Só queria saber o que era. Dez dias depois ainda abro o app esperando o próximo. Tô viciado, simples assim."</p>
+  </div>
+</section>
+
+<!-- ══════════ FINAL CTA ══════════ -->
+<section class="final-cta">
+  <p class="section-label" style="text-align: center;">Você ainda está aqui.</p>
+  <h2 class="section-title">Então você<br>já sabe que<br><em>quer entrar.</em></h2>
+  <p class="section-body" style="margin-bottom: 2rem;">
+    Não tem mistério. Você abre, entra, e em segundos
+    já entende por que quatro mil pessoas nunca saíram.
+    <br><br>
+    A única coisa que separa você disso é um clique.
+  </p>
+
+  <a href="https://t.me/seubot" class="cta-full">
+    <span>Abre pra mim agora</span>
+    <span>→</span>
+  </a>
+
+  <p class="safe-note">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2L3 7v5c0 5.25 3.75 10.05 9 11.25C17.25 22.05 21 17.25 21 12V7l-9-5z" fill="rgba(255,255,255,0.35)"/>
+    </svg>
+    100% privado · Acesso imediato · Zero cobrança
+  </p>
+</section>
+
+</div> <!-- .app-container -->
+
+</body>
+</html>
